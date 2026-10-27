@@ -19,12 +19,33 @@ public class GestorImpresiones {
 
     }
 
-    public boolean registrarTrabajo(TrabajoImpresion trabajo) {
+    public boolean registrarTrabajo(TrabajoImpresion trabajo)  {
         // TODO: validar, comprobar duplicados y capacidad, y registrar.
-        boolean valido = false;
-        return false;
+        if(trabajo == null){
+            return false;
+        }
+
+        if(trabajo.getCodigo() == null || trabajo.getCodigo().isEmpty() || trabajo.getCodigo().isBlank()){
+            return false;
+        }
+
+        if (existeTrabajo(trabajo.getCodigo())){
+            return false;
+        }
+
+        if(colaTrabajos.size() == 10){
+            return false;
+        }
+
+        colaTrabajos.offer(trabajo);
+        return true;
     }
 
+    /**
+     * Busca en la cola existente si existe el codigo ingresado
+     * @param codigo
+     * @return true si es que existe o false si no existe
+     */
     public boolean existeTrabajo(String codigo) {
 
         // TODO: buscar por codigo entre los trabajos pendientes.
