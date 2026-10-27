@@ -2,18 +2,20 @@ package ec.edu.taller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
  * Completar la logica respetando el contrato descrito en README.md.
  */
 public class GestorImpresiones {
-    private Queue<TrabajoImpresion> colaTrabajos;
+    private PriorityQueue<TrabajoImpresion> colaTrabajos;
     private int capacidadMaxima;
 
     public GestorImpresiones(int capacidadMaxima) {
         // TODO: guardar la capacidad e inicializar una cola con prioridad.
-
+        colaTrabajos = new PriorityQueue<>();
+        this.capacidadMaxima = capacidadMaxima;
 
     }
 
