@@ -13,15 +13,27 @@ public class GestorImpresiones {
         // TODO: guardar la capacidad e inicializar una cola con prioridad.
         colaTrabajos = new PriorityQueue<>();
         this.capacidadMaxima = capacidadMaxima; //Deberia ser 10
+        //Predefinir cola con 8 elementos
+        predefinir();
+    }
 
+    public void predefinir() {
+        colaTrabajos.offer(new TrabajoImpresion("T001", "ESTUDIANTE", "Informe.pdf", 3));
+        colaTrabajos.offer(new TrabajoImpresion("T002", "DOCENTE", "ExamenFinal.docx", 1));
+        colaTrabajos.offer(new TrabajoImpresion("T003", "ADMINISTRATIVO", "Presupuesto.xlsx", 2));
+        colaTrabajos.offer(new TrabajoImpresion("T004", "ESTUDIANTE", "Tesis.pdf", 5));
+        colaTrabajos.offer(new TrabajoImpresion("T005", "DOCENTE", "GuiaEstudio.pdf", 4));
+        colaTrabajos.offer(new TrabajoImpresion("T006", "ADMINISTRATIVO", "Contrato.docx", 1));
+        colaTrabajos.offer(new TrabajoImpresion("T007", "ESTUDIANTE", "Proyecto.pptx", 6));
+        colaTrabajos.offer(new TrabajoImpresion("T008", "DOCENTE", "Articulo.pdf", 2));
     }
 
     public boolean registrarTrabajo(TrabajoImpresion trabajo) {
         // TODO: validar, comprobar duplicados y capacidad, y registrar.
         boolean valido = false;
-        if(colaTrabajos.size() >= capacidadMaxima){
+        if (colaTrabajos.size() >= capacidadMaxima) {
             return false;
-        }else{
+        } else {
             valido = true;
         }
 
