@@ -1,15 +1,12 @@
 package ec.edu.taller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Completar la logica respetando el contrato descrito en README.md.
  */
 public class GestorImpresiones {
-    private PriorityQueue<TrabajoImpresion> colaTrabajos;
+    private Queue<TrabajoImpresion> colaTrabajos;
     private int capacidadMaxima;
 
     public GestorImpresiones(int capacidadMaxima) {
@@ -19,38 +16,57 @@ public class GestorImpresiones {
 
     }
 
-    public boolean registrarTrabajo(TrabajoImpresion trabajo)  {
+    public boolean registrarTrabajo(TrabajoImpresion trabajo) {
         // TODO: validar, comprobar duplicados y capacidad, y registrar.
-        if(trabajo == null){
+        boolean valido = false;
+        if(colaTrabajos.size() >= capacidadMaxima){
             return false;
+        }else{
+            valido = true;
         }
 
-        if(trabajo.getCodigo() == null || trabajo.getCodigo().isEmpty() || trabajo.getCodigo().isBlank()){
+        if (trabajo == null) {
             return false;
+        } else {
+            valido = true;
         }
 
-        if (existeTrabajo(trabajo.getCodigo())){
+        if (trabajo.getCodigo() == null || trabajo.getCodigo().isEmpty() || trabajo.getCodigo().isBlank()) {
             return false;
+        } else {
+            valido = true;
         }
 
-        if(colaTrabajos.size() == 10){
+        if (existeTrabajo(trabajo.getCodigo())) {
             return false;
+        } else {
+            valido = true;
         }
 
-        colaTrabajos.offer(trabajo);
-        return true;
+        if (colaTrabajos.size() == 10) {
+            return false;
+        } else {
+            valido = true;
+        }
+
+        if (valido == true) {
+            colaTrabajos.offer(trabajo);
+            return true;
+        }
+
+        return false;
     }
 
-    /**
-     * Busca en la cola existente si existe el codigo ingresado
-     * @param codigo
-     * @return true si es que existe o false si no existe
-     */
+
     public boolean existeTrabajo(String codigo) {
 
         // TODO: buscar por codigo entre los trabajos pendientes.
-        for(TrabajoImpresion tr : colaTrabajos){
-            if(codigo.equals(tr.getCodigo())){
+        if (codigo == null || codigo.isEmpty() || codigo.isBlank()) {
+            return false;
+        }
+
+        for (TrabajoImpresion tr : colaTrabajos) {
+            if (codigo.equals(tr.getCodigo())) {
                 return true;
             }
         }
@@ -60,26 +76,38 @@ public class GestorImpresiones {
 
     public TrabajoImpresion consultarSiguienteTrabajo() {
         // TODO: consultar el trabajo de mayor prioridad sin retirarlo.
-        return null;
+        if (colaTrabajos.isEmpty()) {
+            return null;
+        }
+        return colaTrabajos.peek();
     }
 
     public TrabajoImpresion procesarSiguienteTrabajo() {
         // TODO: retirar el de mayor prioridad y cambiar su estado a PROCESADO.
-        return null;
+        if (colaTrabajos.isEmpty()) {
+            return null;
+        }
+        TrabajoImpresion retirado = colaTrabajos.poll();
+        if (retirado != null) {
+            retirado.setEstado("PROCESADO");
+        }
+        return retirado;
     }
 
     public int contarTrabajosPendientes() {
         // TODO: devolver la cantidad de trabajos en la cola.
-        return 0;
+        return colaTrabajos.size();
     }
 
     public int consultarEspaciosDisponibles() {
         // TODO: devolver capacidad maxima menos trabajos pendientes.
-        return 0;
+        return capacidadMaxima - colaTrabajos.size();
     }
 
     public List<TrabajoImpresion> listarTrabajos() {
         // TODO: devolver una lista ordenada por prioridad sin alterar la cola.
-        return new ArrayList<>();
+        ArrayList<TrabajoImpresion> listaNueva = new ArrayList<>(colaTrabajos);
+        listaNueva.sort(Comparator.comparingInt(TrabajoImpresion::getPrioridad));
+        return listaNueva;
     }
 }

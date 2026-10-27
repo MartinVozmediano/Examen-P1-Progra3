@@ -3,7 +3,7 @@ package ec.edu.taller;
 /**
  * Datos de un trabajo de impresion. Menor numero = mayor prioridad.
  */
-public class TrabajoImpresion implements Comparable<TrabajoImpresion>{
+public class TrabajoImpresion implements Comparable<TrabajoImpresion> {
     private String codigo;
     private String solicitante;
     private String documento;
@@ -65,6 +65,6 @@ public class TrabajoImpresion implements Comparable<TrabajoImpresion>{
 
     @Override
     public int compareTo(TrabajoImpresion o) {
-        return 0;
+        return Integer.compare(prioridad, o.prioridad);
     }
 }
