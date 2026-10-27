@@ -21,6 +21,7 @@ public class GestorImpresiones {
 
     public boolean registrarTrabajo(TrabajoImpresion trabajo) {
         // TODO: validar, comprobar duplicados y capacidad, y registrar.
+        boolean valido = false;
         return false;
     }
 
