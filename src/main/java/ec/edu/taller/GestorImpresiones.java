@@ -15,7 +15,7 @@ public class GestorImpresiones {
     public GestorImpresiones(int capacidadMaxima) {
         // TODO: guardar la capacidad e inicializar una cola con prioridad.
         colaTrabajos = new PriorityQueue<>();
-        this.capacidadMaxima = capacidadMaxima;
+        this.capacidadMaxima = capacidadMaxima; //Deberia ser 10
 
     }
 
